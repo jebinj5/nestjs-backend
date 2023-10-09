@@ -37,3 +37,5 @@ lerna-debug.log*
 #Dev files
 .env
 Dockerfile
+workflows
+.github
