@@ -10,10 +10,12 @@ import {
   Delete,
   Get,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from 'src/dto/create-student.dto';
 import { UpdateStudentDto } from 'src/dto/update-student.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('student')
 export class StudentController {
@@ -39,6 +41,7 @@ export class StudentController {
   }
 
   @Get()
+  @UseGuards(AuthGuard())
   async getStudent(@Res() response) {
     try {
       const studentData = await this.studentService.getAllStudent();
@@ -47,6 +50,7 @@ export class StudentController {
         studentData,
       });
     } catch (err) {
+      console.log(err)
       return response.status(err.status).json(err.response);
     }
   }
